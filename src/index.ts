@@ -119,11 +119,15 @@ async function fetchAndConvert(url: string): Promise<SkillMetadata> {
   };
 }
 
+// Favicon as base64-encoded ICO (32x32 robot icon)
+const FAVICON_BASE64 = 'AAABAAEAICAAAAEAIACoEAAAFgAAACgAAAAgAAAAQAAAAAEAIAAAAAAAABAAABMLAAATCwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8AjY+RAI2PkQCNj5EAjY+RAI2PkQCNj5EAjY+RAI2PkQCNj5EAjY+RAI2PkQCNj5EAjY+RAI2PkQCNj5EAjY+RAI2PkQCNj5EAjY+RAI2PkQCNj5EAjY+RAI2PkQCNj5EA////AP///wD///8A////AP///wD///8A////AP///wCNj5EAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAI2PkQD///8A////AP///wD///8A////AP///wD///8A////AI2PkQCLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAjY+RAP///wD///8A////AP///wD///8A////AP///wD///8AjY+RAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACNj5EA////AP///wD///8A////AP///wD///8A////AP///wCNj5EAi5XcAIuV3ACLldwA////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8Ai5XcAIuV3ACLldwAi5XcAI2PkQD///8A////AP///wD///8A////AP///wD///8A////AI2PkQCLldwAi5XcAIuV3AD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wCLldwAi5XcAIuV3ACLldwAjY+RAP///wD///8A////AP///wD///8A////AP///wD///8AjY+RAIuV3ACLldwAi5XcAP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AIuV3ACLldwAi5XcAIuV3ACNj5EA////AP///wD///8A////AP///wD///8A////AP///wCNj5EAi5XcAIuV3ACLldwA////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8Ai5XcAIuV3ACLldwAi5XcAI2PkQD///8A////AP///wD///8A////AP///wD///8A////AI2PkQCLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAjY+RAP///wD///8A////AP///wD///8A////AP///wD///8AjY+RAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACNj5EA////AP///wD///8A////AP///wD///8A////AP///wCNj5EAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAI2PkQD///8A////AP///wD///8A////AP///wD///8A////AI2PkQCLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAi5XcAIuV3ACLldwAjY+RAP///wD///8A////AP///wD///8A////AP///wD///8AjY+RAI2PkQCNj5EAjY+RAI2PkQCNj5EAjY+RAI2PkQCNj5EAjY+RAI2PkQCNj5EAjY+RAI2PkQCNj5EAjY+RAI2PkQCNj5EAjY+RAI2PkQCNj5EAjY+RAI2PkQCNj5EA////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==';
+
 // Parse route parameters
 function parseRoute(pathname: string): { route: string; params: Record<string, string> } {
   const parts = pathname.split('/').filter(Boolean);
   
   if (parts.length === 0) return { route: 'home', params: {} };
+  if (pathname === '/favicon.ico') return { route: 'favicon', params: {} };
   if (pathname === '/skill.md') return { route: 'skill-instructions', params: {} };
   if (parts[0] === 'convert') return { route: 'convert', params: {} };
   if (parts[0] === 'register') return { route: 'register', params: {} };
@@ -1105,6 +1109,7 @@ function getDocsHtml(baseUrl: string): string {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RegisterSkill — Make Your Website Discoverable by AI Agents</title>
   <meta name="description" content="Register your website to be discoverable by AI agents like Claude, ChatGPT, and Cursor. Generate skill.md files and badges.">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -2148,6 +2153,17 @@ export default {
           return new Response(getDocsHtml(baseUrl), {
             headers: { 'Content-Type': 'text/html;charset=UTF-8', ...corsHeaders },
           });
+
+        case 'favicon': {
+          const faviconBuffer = Uint8Array.from(atob(FAVICON_BASE64), c => c.charCodeAt(0));
+          return new Response(faviconBuffer, {
+            headers: {
+              'Content-Type': 'image/x-icon',
+              'Cache-Control': 'public, max-age=31536000, immutable',
+              ...corsHeaders,
+            },
+          });
+        }
 
         case 'skill-instructions':
           return new Response(getSkillInstructions(baseUrl), {
