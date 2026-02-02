@@ -39,6 +39,68 @@ export interface Env {
   APP_NAME: string;
   APP_DESCRIPTION: string;
   DB: D1Database;
+  GITHUB_TOKEN?: string;
+}
+
+const GITHUB_OWNER = 'metehan777';
+const GITHUB_REPO = 'registerskill';
+
+/**
+ * Sync a skill.md file to GitHub
+ */
+async function syncToGitHub(env: Env, skillName: string, content: string): Promise<boolean> {
+  if (!env.GITHUB_TOKEN) {
+    console.log('GitHub sync skipped: no token configured');
+    return false;
+  }
+
+  const path = `skills/${skillName}.md`;
+  const apiUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${path}`;
+
+  try {
+    // Check if file exists to get SHA for update
+    let sha: string | undefined;
+    const existingResponse = await fetch(apiUrl, {
+      headers: {
+        'Authorization': `Bearer ${env.GITHUB_TOKEN}`,
+        'Accept': 'application/vnd.github.v3+json',
+        'User-Agent': 'RegisterSkill-Worker',
+      },
+    });
+
+    if (existingResponse.ok) {
+      const existingData = await existingResponse.json() as { sha: string };
+      sha = existingData.sha;
+    }
+
+    // Create or update file
+    const response = await fetch(apiUrl, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${env.GITHUB_TOKEN}`,
+        'Accept': 'application/vnd.github.v3+json',
+        'User-Agent': 'RegisterSkill-Worker',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        message: sha ? `Update skill: ${skillName}` : `Add skill: ${skillName}`,
+        content: btoa(unescape(encodeURIComponent(content))),
+        sha,
+      }),
+    });
+
+    if (response.ok) {
+      console.log(`GitHub sync success: ${path}`);
+      return true;
+    } else {
+      const error = await response.text();
+      console.error(`GitHub sync failed: ${response.status} - ${error}`);
+      return false;
+    }
+  } catch (error) {
+    console.error('GitHub sync error:', error);
+    return false;
+  }
 }
 
 interface Skill {
@@ -194,7 +256,7 @@ async function handleConvert(request: Request): Promise<Response> {
 }
 
 // Handle POST /register - register a new skill
-async function handleRegister(request: Request, env: Env, baseUrl: string): Promise<Response> {
+async function handleRegister(request: Request, env: Env, baseUrl: string, ctx: ExecutionContext): Promise<Response> {
   try {
     const body = await request.json() as {
       url: string;
@@ -293,6 +355,18 @@ async function handleRegister(request: Request, env: Env, baseUrl: string): Prom
       registeredBy,
       meta.fetchedAt
     ).run();
+
+    // Generate skill.md content and sync to GitHub (non-blocking)
+    const skillContent = generateSkill('standard', meta, {
+      name,
+      emoji,
+      category,
+      mode,
+      baseUrl,
+    }) as string;
+    
+    // Sync to GitHub in background (don't await to avoid blocking response)
+    ctx.waitUntil(syncToGitHub(env, name, skillContent));
 
     return new Response(JSON.stringify({
       success: true,
@@ -2180,7 +2254,7 @@ export default {
               headers: { 'Content-Type': 'application/json', ...corsHeaders },
             });
           }
-          return handleRegister(request, env, baseUrl);
+          return handleRegister(request, env, baseUrl, ctx);
 
         case 'list':
           return handleList(request, env, baseUrl);
