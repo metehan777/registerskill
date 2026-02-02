@@ -1,0 +1,32 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+out/
+
+# Wrangler
+.wrangler/
+.dev.vars
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Remotion (video project - not part of the worker)
+promo-video/
+remotion/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*

@@ -1,0 +1,23 @@
+# Ignore Remotion video project from Cloudflare uploads
+promo-video/
+remotion/
+
+# Ignore development files
+.wrangler/
+.git/
+.github/
+*.md
+!README.md
+
+# Ignore test files
+*.test.ts
+*.spec.ts
+__tests__/
+
+# Ignore IDE files
+.idea/
+.vscode/
+
+# Ignore OS files
+.DS_Store
+Thumbs.db

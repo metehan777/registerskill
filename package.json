@@ -1,0 +1,25 @@
+{
+  "name": "md-creator",
+  "version": "1.0.0",
+  "description": "A Cloudflare Worker that converts any website to clean markdown",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "tail": "wrangler tail"
+  },
+  "keywords": [
+    "cloudflare",
+    "workers",
+    "markdown",
+    "html-to-markdown",
+    "web-scraper"
+  ],
+  "author": "MetehansCursorBot",
+  "license": "MIT",
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241205.0",
+    "typescript": "^5.3.3",
+    "wrangler": "^4.61.1"
+  }
+}

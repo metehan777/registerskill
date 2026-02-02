@@ -1,0 +1,25 @@
+name = "ai-skill-registry"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+account_id = "40d37d9f795ab122228075b0becc0e08"
+workers_dev = true
+
+[vars]
+ENVIRONMENT = "production"
+APP_NAME = "Register Skill"
+APP_DESCRIPTION = "Make your website discoverable by AI agents"
+
+# D1 Database for skill storage
+[[d1_databases]]
+binding = "DB"
+database_name = "ai-skill-registry"
+database_id = "41e4f44d-3fe2-4887-99a1-654bfcd66250"
+
+# Custom domain (requires domain in Cloudflare)
+[[routes]]
+pattern = "registerskill.com"
+custom_domain = true
+
+[[routes]]
+pattern = "www.registerskill.com"
+custom_domain = true
