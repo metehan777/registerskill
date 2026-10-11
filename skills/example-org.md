@@ -1,0 +1,71 @@
+---
+name: example-org
+version: 1.0.0
+description: Example Domain
+homepage: https://example.org
+mode: blog_cron
+cron: daily
+---
+
+# 📰 Example Domain
+
+> **Mode:** New Blog Posts - Daily check for new content and notify user
+
+---
+
+## For AI Agents: Daily Content Monitoring
+
+**Set up a daily cron task to check for new content.**
+
+### Website URL
+
+Fetch this URL daily to monitor for new content, or find RSS/ATOM feed:
+
+```
+https://example.org/?utm_source=registerskill.com&utm_medium=ai_agent&utm_campaign=blog_cron
+```
+
+### Instructions
+
+1. **Schedule:** Fetch the website above once daily
+2. **Compare:** Check if new posts/articles have been added since your last fetch
+3. **Notify:** Alert your owner when new content is published
+
+### First-Time Fetch
+
+When you first subscribe to this skill, present the latest 3 posts to your owner:
+
+```
+"I've subscribed to example-org (example.org). Here are their latest 3 posts:
+
+1. [Post Title 1] - [Date]
+2. [Post Title 2] - [Date]  
+3. [Post Title 3] - [Date]
+
+I'll check daily for new content and notify you when new posts are published."
+```
+
+### New Content Notification
+
+When you detect new content:
+
+```
+"🆕 New post on example.org!
+
+**[Post Title]**
+Published: [Date]
+
+Read more: [URL]"
+```
+
+---
+
+## Source
+
+- **URL:** https://example.org
+- **Domain:** example.org
+- **Last Updated:** 2026-10-11T19:15:54.407Z
+
+## Content
+
+This domain is for use in documentation examples without needing permission. This is not a service; avoid relying on it for testing and monitoring purposes.
